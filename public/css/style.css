@@ -1,6 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
 body {
-    font-size: 12pt;
+    font-size: 10pt;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-weight: 100;
+                    text-transform: uppercase;
+
+
+    color: blue;
+            text-shadow: 0 0 2px  black;
+
 }
 
 p {
@@ -8,15 +16,22 @@ p {
 }
 
 h1 {
-    font-family: 'Agbalumo';
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 36pt;
+        color: red;
+        text-shadow: 0 0 5px  black;
+        text-transform: uppercase;
+        font-weight: 900;
+        alignment-baseline: center;
+
+
 }
 main, header, footer, nav ul {
-    max-width: 40rem;
+    max-width: 80rem;
     margin: 0 auto 0 auto;
 }
 main {
-    background-color: bisque;
+    background-color: rgb(255, 246, 233);
 }
 
 /* nav ul li {
@@ -27,18 +42,23 @@ main {
 } */
 
 header {
-    background-image: url("../img/polacks.jpg");
+    background-image: url("../img/header_burger.jpg");
     background-size: cover;
     overflow: hidden;
     width: 100%;
     height: 200px;
-    opacity: 0.5;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("../img/header_burger.jpg");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 header h1 {
     width:40rem;
     margin: 0 auto;
     text-align: center;
+
 }
 
 nav ul {
@@ -62,3 +82,52 @@ nav li {
     color: green;
     font-weight: bold;
 }
+
+.allergen {
+    font-weight: bold;
+}
+
+
+#burgers div{
+    background-color: red;
+    color: white;
+    padding: 5px;
+    margin: 15px;
+    padding: 15px;
+    border: 7px dotted;
+    border-color: beige;
+}
+
+#order {
+    background-color: red;
+    color: white;
+}
+
+button:hover {
+   background-color: rgb(255, 253, 253);
+   cursor: pointer;
+}
+
+/* 1. Luft runt dina sektioner så texten inte ligger kloss mot kanten */
+section {
+    margin: 20px;
+}
+
+/* 2. Luft ovanför/runt knappen så den inte sitter fast i sektionen ovanför */
+button {
+    margin: 20px 20px 20px 20px
+}
+
+.wrapper {
+     display: grid;
+     grid-gap: 10px;
+     grid-template-columns: 33% 33% 33%;
+
+ }
+
+ .footer {
+     display: grid;
+     grid-gap: 10px;
+     grid-template-columns: 33% 33% 33%;
+
+ }

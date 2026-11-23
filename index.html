@@ -1,128 +1,13 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-   <head>
-       <title>Jojs Burgir</title>
-       <meta charset="utf-8"/>
-   </head>
-   <body>
-        <header>
-        <h1>Välkommen till Jojs Burgir</h1>
-        </header>
-        <main>
-        <section>
-        <h2>Välj Burgir</h2>
-                <p>Välj din burgir nedan</p>
-        </section>
-
-        <section>
-                <div style="display: inline-block">
-            <h2>Sojs de bearnojs burgir</h2>
-            <img src="/img/sojsdebearnojse.jpg" style="width:200px;height:200px">
-            <li>Innehåller gluten och bearnaisessås</li>
-            <li>serveras med gränges på tap</li>
-            </div>
-
-            <div style="display: inline-block">
-            <h2>Chicken Parmesan Burgir</h2>
-            <img src="/img/chickenparm.jpg" style="width:200px;height:200px">
-            <li>Innehåller gluten och aioli och massa parmesan</li>
-            <li>serveras med gränges på tap</li>
-            </div>
-
-            <div style="display: inline-block">
-            <h2>Flygande Burgare</h2>
-            <img src="/img/flygandeburgare.jpg" style="width:200px;height:200px">
-            <li>Innehåller massa flygande mat och bearnaisessås</li>
-            <li>serveras med gränges på tap</li>
-            </div>
-
-        </section>
-
-        </section>
-        <h2>Customer Information</h2>
-                <p>Provide necassary information</p>
-        </section>
-
-                <section id="contact">
-                                <h3>Delievery Address</h3>
-
-        <form>
-        <p>
-        <label for="full name">Full name</label><br>
-        <input type="text" id="fullname" name="fn" required="required" placeholder="full name">
-        </p>
-        <p>
-        <label for="e-mailadress">e-mailadress</label><br>
-        <input type="text" id="lastname" name="ln" placeholder="e-mailaddress">
-        </p>
-        <p>
-        <label for="...street number">Adress</label><br>
-        <input type="email" id="email" name="em" required="required" placeholder="Adress">
-        </p>
-         <p>
-        <label for="...street number">House number</label><br>
-        <input type="email" id="email" name="em" required="required" placeholder="bara siffor">
-        </p>
-
-        </section>
-
-    <section>
-        <p>
-   <label for="recipient">Recipient</label><be>
-   <select id="recipient" name="rcp">
-       <option>Apple Pay</option>
-       <option>Kort</option>
-       <option>Klarna</option>
-       <option>Swish</option>
-   </select>
-</p>
-</section>
-
-<section>
-
-       <p>Gender</p> 
-       <input type="radio" id="female" name="fav_language" value="female">
-<label for="female">Female</label><br>
-<input type="radio" id="male" name="fav_language" value="male">
-<label for="male">Male</label><br>
-<input type="radio" id="noanswer" name="fav_language" value="noanswer">
-<label for="noanswer">Chose not to answer</label>
-</section>
-
-<section>
-<button type="submit">
-  <img src="/img/place_order.jpg" style="width:30px;height:30px" >
-  Place order
-</button>
-
-</section>
-
-        </form>
-    
-
-        </main>
-
-        </section>
-        <footer>Contact</footer>
-        </section>
-
-   </body>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burgers</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
-
-
-## 02 HTML
-
-Your index.html file contains:
-- [ ] A headline
-- [ ] A section to select burgers that contains at least three items. Each item has:
-    - [ ] A name
-    - [ ] An image
-    - [ ] Information about allergies 
-- [ ] A section to collect customer information:
-    - [ ] First- and Last Name (in one field)
-    - [ ] E-Mail Address
-    - [ ] Street
-    - [ ] House Number (only allowing numbers in this field)
-    - [ ] Gender (male, female, do not wish to provide as radio buttons)
-- [ ] A button to place the order
-- [ ] Ensure the website loads when opening http://localhost:5173/
