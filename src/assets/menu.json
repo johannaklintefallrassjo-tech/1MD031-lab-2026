@@ -1,0 +1,25 @@
+[
+  {
+    "name": "Sojs de bearnojs burgir",
+    "kCal": 600,
+    "lactose": false,
+    "gluten": true,
+    "img": "/img/sojsdebearnojse.jpg"
+  }
+  ,
+  {
+    "name": "Chicken Parmesan Burgir",
+    "kCal": 600,
+    "lactose": false,
+    "gluten": true,
+    "img": "/img/chickenparm.jpg"
+  }
+  ,
+  {
+    "name": "Flygande Burgare",
+    "kCal": 600,
+    "lactose": false,
+    "gluten": true,
+    "img": "/img/flygandeburgare.jpg"
+  }
+]

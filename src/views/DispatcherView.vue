@@ -1,9 +1,17 @@
 <template>
     <div id="orders">
       <div id="orderList">
-        <div v-for="(order, key) in orders" v-bind:key="'order'+key">
-          #{{ key }}: {{ order.orderItems.join(", ") }}
-        </div>
+       <div v-for="(order, key) in orders" v-bind:key="'order'+key">
+  #{{ key }}:
+  <span v-for="(amount, name) in order.orderItems" v-bind:key="name">
+    {{ name }}: {{ amount }},
+  </span>
+  <div v-if="order.customer">
+    <i>
+      {{ order.customer.name }} ({{ order.customer.email }}, {{ order.customer.payment }}, {{ order.customer.gender }})
+    </i>
+  </div>
+</div>
         <button v-on:click="clearQueue">Clear Queue</button>
       </div>
       <div id="dots">

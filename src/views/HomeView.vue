@@ -14,32 +14,12 @@
 
         <div class="wrapper">
 
-                <div>
-            <h2>Sojs de bearnojs burgir</h2>
-            <img src="/img/sojsdebearnojse.jpg" style="width:200px;height:200px">
-            <li>Innehåller<span class="allergen"> gluten</span></li>
-                 <li>Smashed burgare med bearnaisessås</li>
-            <li>serveras med gränges på tap</li>
-  
+               <Burger v-for="burger in burgers"
+            v-bind:burger="burger"
+            v-bind:key="burger.name"
+            v-on:orderedBurger="addToOrder($event)"
+            />
 
-            </div>
-
-            <div>
-            <h2>Chicken Parmesan Burgir</h2>
-            <img src="/img/chickenparm.jpg" style="width:200px;height:200px">
-            <li>Innehåller<span class="allergen"> gluten</span></li>
-          <li>Kycklingburgare med parmesan, aioli</li>
-            <li>serveras med gränges på tap</li>
-            </div>
-
-            <div>
-            <h2>Flygande Burgare</h2>
-            <img src="/img/flygandeburgare.jpg" style="width:200px;height:200px">
-            <li>Innehåller<span class="allergen">gluten</span></li>
-                 <li>Flygande burgare, utan banan och Jacob</li>
-
-            <li>serveras med gränges på tap</li>
-            </div>
         </div>
 
         </section>
@@ -55,27 +35,20 @@
        
         <p>
         <label for="full name">Full name</label><br>
-        <input type="text" id="fullname" name="fn" required="required" placeholder="full name">
+        <input type="text" id="fullname" v-model="fullname" required="required" placeholder="full name">
         </p>
         <p>
         <label for="e-mailadress">e-mailadress</label><br>
-        <input type="text" id="lastname" name="ln" placeholder="e-mailaddress">
+        <input type="text" id="email" v-model="email" placeholder="e-mailaddress">
         </p>
-        <p>
-        <label for="...street number">Adress</label><br>
-        <input type="email" id="email" name="em" required="required" placeholder="Adress">
-        </p>
-         <p>
-        <label for="...street number">House number</label><br>
-        <input type="email" id="email" name="em" required="required" placeholder="bara siffor">
-        </p>
+     
 
         </section>
 
     <section>
         <p>
    <label for="recipient">Recipient</label>br>
-   <select id="recipient" name="rcp">
+   <select id="recipient" v-model="recipient">
        <option>Apple Pay</option>
        <option>Kort</option>
        <option>Klarna</option>
@@ -87,16 +60,16 @@
 <section>
 
        <p>Gender</p> 
-       <input type="radio" id="female" name="fav_language" value="female">
+       <input type="radio" id="female" v-model="gender" value="female">
 <label for="female">Female</label><br>
-<input type="radio" id="male" name="fav_language" value="male">
+<input type="radio" id="male" v-model="gender" value="male">
 <label for="male">Male</label><br>
-<input type="radio" id="noanswer" name="fav_language" value="noanswer">
+<input type="radio" id="noanswer" v-model="gender" value="noanswer">
 <label for="noanswer">Chose not to answer</label>
 </section>
 
 <section>
-<button type="submit">
+<button type="button" v-on:click="placeOrder">
   <img src="/img/place_order.jpg" style="width:30px;height:30px" >
   Place order
 </button>
@@ -130,15 +103,14 @@
     
 
 <div>
-    <div>
-    <h1>Burgers</h1>
-    <Burger v-for="burger in burgers"
-            v-bind:burger="burger" 
-            v-bind:key="burger.name"/>
+    
+   <div id="map-container">
+    <div id="map" v-on:click="setLocation">
+<div id="target-dot" v-bind:style="{ left: location.x + 'px', top: location.y + 'px' }">
+      T
     </div>
-    <div id="map" v-on:click="addOrder">
-    click here
     </div>
+</div>
 </div>
 </template>
 
@@ -146,6 +118,8 @@
 
 import Burger from '../components/OneBurger.vue'
 import io from 'socket.io-client'
+import menu from '../assets/menu.json'
+
 
 const socket = io("localhost:3000");
 
@@ -172,25 +146,63 @@ export default {
   },
  data: function () {
     return {
-      burgers: burgers
+      burgers: menu,
+      fullname: "",
+    email: "",
+    recipient: "Apple Pay",
+    gender: "",
+    orderedBurgers: {},
+    location: { x: 0,
+            y: 0
+          }
     }
   },
   methods: {
+    placeOrder: function () {
+      console.log(
+        this.fullname,
+        this.email,
+        this.recipient,
+        this.gender,
+        this.orderedBurgers
+      );
+      socket.emit("addOrder", {
+    orderId: this.getOrderNumber(),
+    details: {
+      x: this.location.x,
+      y: this.location.y
+    },
+    orderItems: this.orderedBurgers,
+    customer: {
+          name: this.fullname,
+          email: this.email,
+          payment: this.recipient,
+          gender: this.gender
+    }
+  });
+},
+  
+
     getOrderNumber: function () {
       return Math.floor(Math.random()*100000);
     },
-    addOrder: function (event) {
-      var offset = {x: event.currentTarget.getBoundingClientRect().left,
-                    y: event.currentTarget.getBoundingClientRect().top};
-      socket.emit("addOrder", { orderId: this.getOrderNumber(),
-                                details: { x: event.clientX - 10 - offset.x,
-                                           y: event.clientY - 10 - offset.y },
-                                orderItems: ["Beans", "Curry"]
-                              }
-                 );
-    }
+    addToOrder: function (event) {
+  this.orderedBurgers[event.name] = event.amount;
+  },
+  setLocation: function (event) {
+  var offset = {
+    x: event.currentTarget.getBoundingClientRect().left,
+    y: event.currentTarget.getBoundingClientRect().top
+  };
+  this.location.x = event.clientX - 10 - offset.x;
+  this.location.y = event.clientY - 10 - offset.y;
+},
+   
   }
+
 }
+
+
 </script>
 
 <style>
@@ -328,9 +340,28 @@ button {
      grid-template-columns: 33% 33% 33%;
 
  }
-  #map {
-    width: 300px;
-    height: 300px;
-    background-color: red;
-  }
+#map-container {
+  width: 100%;
+  height: 500px;
+  overflow: scroll;
+}
+
+#map {
+  width: 1920px;
+  height: 1078px;
+  background: url("/img/polacks.jpg");
+  position: relative;
+}
+
+#target-dot {
+  position: absolute;
+  background: black;
+  color: white;
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
+
 </style>
